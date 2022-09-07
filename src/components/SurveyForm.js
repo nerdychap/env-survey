@@ -1,9 +1,11 @@
-import { Button, FormControl, IconButton, InputLabel, MenuItem, Select, TextField } from '@mui/material'
-import { Box } from '@mui/system'
-import React, { Fragment, useState } from 'react'
 import AddIcon from '@mui/icons-material/Add';
+import { Button, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import { Box } from '@mui/system';
+import React, { Fragment, useState } from 'react';
+import { useSurveyContext } from '../constants/hooks';
+import { addQuestion } from '../store/actions';
 
-const ANSWER_TYPE = {
+export const ANSWER_TYPE = {
     TEXT: 'text',
     BOOLEAN: 'boolean',
     NUMBER: 'number',
@@ -17,6 +19,7 @@ const initialSurveyState = {
 const SurveyForm = () => {
     const [survey, setSurvey] = useState(initialSurveyState)
     const [option, setOption] = useState('')
+    const { dispatch } = useSurveyContext()
     const handleInputChange = ({ target: { name, value } }) => {
         setSurvey(prevState => ({
             ...prevState
@@ -32,10 +35,11 @@ const SurveyForm = () => {
     }
     const handleAddQuestion = (event) => {
         event.preventDefault()
+        dispatch(addQuestion(survey))
         setSurvey(initialSurveyState)
     }
     return (
-        <Box sx={{ minWidth: 120, backgroundColor: 'lightblue', p: 5 }}>
+        <Box sx={{ p: 5 }}>
             <form onSubmit={handleAddQuestion}>
                 <FormControl>
                     <TextField label="Enter question" name="question" onChange={handleInputChange} value={survey.question} required />
