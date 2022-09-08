@@ -1,8 +1,14 @@
+import { Box, FormControl, TextField } from '@mui/material'
 import React from 'react'
 
-const TextQuestion = ({ question, answerType }) => {
+const TextQuestion = ({ question }) => {
     return (
-        <div>{question} - {answerType}</div>
+        <Box sx={{textAlign: 'start'}}>
+            <FormControl>
+                <h5>{question}</h5>
+                <TextField />
+            </FormControl>
+        </Box>
 
     )
 }
