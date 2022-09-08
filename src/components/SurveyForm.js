@@ -3,23 +3,12 @@ import { Button, FormControl, InputLabel, MenuItem, Select, TextField } from '@m
 import { Box } from '@mui/system';
 import React, { Fragment, useState } from 'react';
 import { useSurveyContext } from '../constants/hooks';
-import { addQuestion } from '../store/actions';
+import { addQuestion, editQuestion } from '../store/actions';
+import { ANSWER_TYPE, initialSurveyState } from '../constants/constants'
 
-export const ANSWER_TYPE = {
-    TEXT: 'text',
-    BOOLEAN: 'boolean',
-    NUMBER: 'number',
-    MULTIPLE_CHOICE: 'multiple-choice'
-}
-const initialSurveyState = {
-    question: '',
-    options: [],
-    answerType: ''
-}
 const SurveyForm = () => {
-    const [survey, setSurvey] = useState(initialSurveyState)
     const [option, setOption] = useState('')
-    const { dispatch } = useSurveyContext()
+    const { dispatch, survey, setSurvey, state } = useSurveyContext()
     const handleInputChange = ({ target: { name, value } }) => {
         setSurvey(prevState => ({
             ...prevState
@@ -35,8 +24,16 @@ const SurveyForm = () => {
     }
     const handleAddQuestion = (event) => {
         event.preventDefault()
-        dispatch(addQuestion(survey))
+        const questionIndex = state.findIndex(({ id }) => survey.id === id)
+        console.log('Question Index', questionIndex)
+        if (questionIndex === -1) {
+            dispatch(addQuestion(survey))
+        }
+        else {
+            dispatch(editQuestion({ ...survey, questionIndex }))
+        }
         setSurvey(initialSurveyState)
+
     }
     return (
         <Box sx={{ p: 5 }}>
@@ -67,10 +64,10 @@ const SurveyForm = () => {
                         <FormControl>
                             <TextField label="answer option" name="answerOption" onChange={handleChangeOption} value={option} />
                         </FormControl>
-                        <Button children={<AddIcon />} onClick={handleAddOption} disabled={survey.options.length === 0 && !Boolean(option)} />
+                        <Button children={<AddIcon />} variant="contained" onClick={handleAddOption} disabled={survey.options.length === 0 && !Boolean(option)} />
                     </Fragment>
                 }
-                <Button variant='contained' type='submit'>Add Question</Button>
+                <Button variant='contained' type='submit' size='large' disabled={survey.answerType === ANSWER_TYPE.MULTIPLE_CHOICE && survey.options.length === 0}>Add Question</Button>
             </form>
         </Box>
     )

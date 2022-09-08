@@ -1,9 +1,9 @@
 import { ACTIONS } from "./actions";
 import { v4 as uuidv4 } from 'uuid'
-import { ANSWER_TYPE } from "../components/SurveyForm";
-import { componentsObject } from "../constants/constants";
+import { ANSWER_TYPE, componentsObject } from "../constants/constants";
 
 const surveyReducer = (state, { type, payload }) => {
+    let newState = [...state]
     switch (type) {
         case ACTIONS.ADD_QUESTION:
             payload.id = uuidv4()
@@ -12,6 +12,18 @@ const surveyReducer = (state, { type, payload }) => {
             }
             payload.component = componentsObject[payload.answerType]
             return [...state, payload]
+        case ACTIONS.REMOVE_QUESTION:
+            newState = state.filter(({ id }) => id !== payload)
+            return newState
+
+        case ACTIONS.EDIT_QUESTION:
+            const { component, questionIndex, ...rest } = payload
+            newState[questionIndex] = rest
+            newState[questionIndex].component = componentsObject[rest.answerType]
+            if (rest.answerType === ANSWER_TYPE.BOOLEAN) {
+                newState[questionIndex].options = ['Yes', 'No']
+            }
+            return newState
         default:
             return state
     }

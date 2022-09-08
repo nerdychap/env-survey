@@ -5,13 +5,13 @@ import { useSurveyContext } from '../constants/hooks'
 const Questions = () => {
     const { state } = useSurveyContext()
     return (
-        <Box sx={{ maxWidth: 800 ,boxShadow: '0px 0px 5px lightgrey', borderRadius: 1, m: 'auto', p: 2}}>
+        <Box sx={{ maxWidth: 800, m: 'auto', p: 2 }}>
             <Box>
-                <h3>Questions</h3>
+                <h2>Questions</h2>
             </Box>
             <Box>
                 {
-                    state.map(({ component: Component, id, ...rest }) => <Component key={id} {...rest} />)
+                    state.map(({ component: Component, id, ...rest }) => <Component key={id}  {...rest} id={id} />)
                 }
             </Box>
         </Box>

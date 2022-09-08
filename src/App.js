@@ -1,14 +1,15 @@
 import { Container } from '@mui/material';
-import { useReducer } from 'react';
+import { useReducer, useState } from 'react';
 import Questions from './components/Questions';
 import SurveyForm from './components/SurveyForm';
+import { initialSurveyState } from './constants/constants';
 import SurveyContext from './store/context';
 import surveyReducer from './store/reducer';
 
-
 function App() {
   const [state, dispatch] = useReducer(surveyReducer, [])
-  const value = { state, dispatch }
+  const [survey, setSurvey] = useState(initialSurveyState)
+  const value = { state, dispatch, survey, setSurvey }
   return (
     <Container sx={{ textAlign: 'center' }} maxWidth="lg">
       <SurveyContext.Provider value={value}>
