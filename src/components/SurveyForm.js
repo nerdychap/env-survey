@@ -35,7 +35,7 @@ const SurveyForm = () => {
 
     }
     return (
-        <Box sx={{ p: 5 }}>
+        <Box sx={{ p: 5, width: 550, m: 'auto', backgroundColor: 'white', my: 2 }}>
             <form onSubmit={handleAddQuestion}>
                 <Box sx={{ display: 'flex', justifyContent: 'center', gap: 1 }}>
                     <FormControl>
@@ -59,7 +59,7 @@ const SurveyForm = () => {
                         </Select>
                     </FormControl>
                 </Box>
-                <Box sx={{ display: 'flex', flexDirection: 'column', my: .51, width: '73%', mx: 'auto', gap: .5 }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', my: .5, width: '73%', mx: 'auto', gap: .5 }}>
                     {
                         survey.answerType === ANSWER_TYPE.MULTIPLE_CHOICE &&
                         <Fragment>
