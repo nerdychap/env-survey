@@ -24,8 +24,6 @@ const surveyReducer = (state, { type, payload }) => {
                 newState[questionIndex].options = ['Yes', 'No']
             }
             return newState
-        case ACTIONS.REORDER_QUESTIONS:
-            return payload
         default:
             return state
     }
