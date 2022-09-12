@@ -1,10 +1,9 @@
-import AddIcon from '@mui/icons-material/Add';
 import { Button, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import { Box } from '@mui/system';
 import React, { Fragment, useState } from 'react';
+import { ANSWER_TYPE, initialSurveyState } from '../constants/constants';
 import { useSurveyContext } from '../constants/hooks';
 import { addQuestion, editQuestion } from '../store/actions';
-import { ANSWER_TYPE, initialSurveyState } from '../constants/constants'
 
 const SurveyForm = () => {
     const [option, setOption] = useState('')
