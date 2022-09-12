@@ -35,38 +35,43 @@ const SurveyForm = () => {
 
     }
     return (
-        <Box sx={{ p: 5 }}>
+        <Box sx={{ p: 5, width: 550, m: 'auto', backgroundColor: 'white', my: 2 }}>
             <form onSubmit={handleAddQuestion}>
-                <FormControl>
-                    <TextField label="Enter question" name="question" onChange={handleInputChange} value={survey.question} required />
-                </FormControl>
-                <FormControl sx={{ minWidth: 200 }}>
-                    <InputLabel id="select-label">Answer Type</InputLabel>
-                    <Select
-                        value={survey.answerType}
-                        label="Answer Type"
-                        labelId="select-label"
-                        name="answerType"
-                        onChange={handleInputChange}
-                        defaultValue="Answer Type"
-                        required
-                    >
-                        <MenuItem value={ANSWER_TYPE.TEXT}>Text</MenuItem>
-                        <MenuItem value={ANSWER_TYPE.BOOLEAN}>Boolean</MenuItem>
-                        <MenuItem value={ANSWER_TYPE.NUMBER}>Number</MenuItem>
-                        <MenuItem value={ANSWER_TYPE.MULTIPLE_CHOICE}>Multiple Choice</MenuItem>
-                    </Select>
-                </FormControl>
-                {
-                    survey.answerType === ANSWER_TYPE.MULTIPLE_CHOICE &&
-                    <Fragment>
-                        <FormControl>
-                            <TextField label="answer option" name="answerOption" onChange={handleChangeOption} value={option} />
-                        </FormControl>
-                        <Button children="Add option" variant="contained" onClick={handleAddOption} disabled={survey.options.length === 0 && !Boolean(option)} />
-                    </Fragment>
-                }
-                <Button variant='contained' type='submit' size='large' disabled={survey.answerType === ANSWER_TYPE.MULTIPLE_CHOICE && survey.options.length === 0}>Add Question</Button>
+                <Box sx={{ display: 'flex', justifyContent: 'center', gap: 1 }}>
+                    <FormControl>
+                        <TextField label="Question" name="question" onChange={handleInputChange} value={survey.question} required />
+                    </FormControl>
+                    <FormControl sx={{ minWidth: 200 }}>
+                        <InputLabel id="select-label">Answer Type</InputLabel>
+                        <Select
+                            value={survey.answerType}
+                            label="Answer Type"
+                            labelId="select-label"
+                            name="answerType"
+                            onChange={handleInputChange}
+                            defaultValue="Answer Type"
+                            required
+                        >
+                            <MenuItem value={ANSWER_TYPE.TEXT}>Text</MenuItem>
+                            <MenuItem value={ANSWER_TYPE.BOOLEAN}>Boolean</MenuItem>
+                            <MenuItem value={ANSWER_TYPE.NUMBER}>Number</MenuItem>
+                            <MenuItem value={ANSWER_TYPE.MULTIPLE_CHOICE}>Multiple Choice</MenuItem>
+                        </Select>
+                    </FormControl>
+                </Box>
+                <Box sx={{ display: 'flex', flexDirection: 'column', my: .5, width: '73%', mx: 'auto', gap: .5 }}>
+                    {
+                        survey.answerType === ANSWER_TYPE.MULTIPLE_CHOICE &&
+                        <Fragment>
+                            <FormControl>
+                                <TextField label="answer option" name="answerOption" onChange={handleChangeOption} value={option} />
+                            </FormControl>
+                            <Button  children="Add Option" variant="contained" onClick={handleAddOption} disabled={survey.options.length === 0 && !Boolean(option)} />
+                        </Fragment>
+                    }
+                </Box>
+
+                <Button variant='contained' type='submit' color="success" size='large' sx={{ width: '73%' }} disabled={survey.answerType === ANSWER_TYPE.MULTIPLE_CHOICE && survey.options.length === 0}>Add Question</Button>
             </form>
         </Box>
     )
