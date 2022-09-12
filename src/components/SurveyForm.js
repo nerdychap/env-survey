@@ -24,7 +24,6 @@ const SurveyForm = () => {
     const handleAddQuestion = (event) => {
         event.preventDefault()
         const questionIndex = state.findIndex(({ id }) => survey.id === id)
-        console.log('Question Index', questionIndex)
         if (questionIndex === -1) {
             dispatch(addQuestion(survey))
         }
