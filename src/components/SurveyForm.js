@@ -63,7 +63,7 @@ const SurveyForm = () => {
                         <FormControl>
                             <TextField label="answer option" name="answerOption" onChange={handleChangeOption} value={option} />
                         </FormControl>
-                        <Button children={<AddIcon />} variant="contained" onClick={handleAddOption} disabled={survey.options.length === 0 && !Boolean(option)} />
+                        <Button children="Add option" variant="contained" onClick={handleAddOption} disabled={survey.options.length === 0 && !Boolean(option)} />
                     </Fragment>
                 }
                 <Button variant='contained' type='submit' size='large' disabled={survey.answerType === ANSWER_TYPE.MULTIPLE_CHOICE && survey.options.length === 0}>Add Question</Button>
