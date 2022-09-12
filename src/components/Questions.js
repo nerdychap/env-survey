@@ -1,3 +1,4 @@
+import { Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import React from 'react'
 import { ReactSortable } from 'react-sortablejs'
@@ -10,18 +11,23 @@ const Questions = () => {
         dispatch(reorderQuestions(newState))
     }
     return (
-        <Box sx={{ maxWidth: 800, m: 'auto', p: 2 }}>
+        <Box sx={{ maxWidth: 600, m: 'auto', p: 2, backgroundColor: 'white' }}>
             <Box>
                 <h2>Questions</h2>
             </Box>
-            <ReactSortable
-                list={state}
-                setList={handleDrag}
-            >
-                {
-                    state.map(({ component: Component, id, ...rest }) => <Component key={id}  {...rest} id={id} />)
-                }
-            </ReactSortable>
+            {state.length === 0 ?
+                <Box>
+                <Typography>Add questions!</Typography>
+                </Box> :
+                <ReactSortable
+                    list={state}
+                    setList={handleDrag}
+                >
+                    {
+                        state.map(({ component: Component, id, ...rest }) => <Component key={id}  {...rest} id={id} />)
+                    }
+                </ReactSortable>
+            }
         </Box>
 
 
