@@ -24,6 +24,7 @@ const SurveyForm = () => {
     const handleAddQuestion = (event) => {
         event.preventDefault()
         const questionIndex = state.findIndex(({ id }) => survey.id === id)
+        console.log('Question Index', questionIndex)
         if (questionIndex === -1) {
             dispatch(addQuestion(survey))
         }
@@ -34,7 +35,7 @@ const SurveyForm = () => {
 
     }
     return (
-        <Box sx={{ p: 5, width: 550, m: 'auto', backgroundColor: 'white', my: 2 }}>
+        <Box sx={{ p: 5 }}>
             <form onSubmit={handleAddQuestion}>
                 <Box sx={{ display: 'flex', justifyContent: 'center', gap: 1 }}>
                     <FormControl>
